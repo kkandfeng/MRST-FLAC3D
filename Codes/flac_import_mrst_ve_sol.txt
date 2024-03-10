@@ -1,0 +1,538 @@
+; FLAC imports the results of MRST
+; Import from tmp/pressure_ and sat_
+; 单元索引来自 zone_cell_index_out.txt
+;
+model new
+model restore 'init_flac.sav'
+zone fluid zone-based-pp on
+zone gridpoint initialize displacement-x 0
+zone gridpoint initialize displacement-y 0
+zone gridpoint initialize displacement-z 0
+zone gridpoint initialize velocity-x 0
+zone gridpoint initialize velocity-y 0
+zone gridpoint initialize velocity-z 0
+;
+fish define init_var
+  array zc_index(500000)
+  array p(500000)
+  array sat(500000)
+
+  index_fname = 'LiuJiaGou_tmp/LiuJiaGou_Cap_zone_cell_index_out.txt'
+  press_fname = 'LiuJiaGou_tmp/pressure_60.txt'
+  sat_fname = 'LiuJiaGou_tmp/sat_60.txt'
+
+  mrst_cell_num = 1
+  flac_zone_num = 1  
+end
+;
+;
+fish define read_zone_cell_index
+  array zc_index(500000)
+  array p(500000)
+  array sat(500000)
+
+  index_fname = 'LiuJiaGou_tmp/LiuJiaGou_Cap_zone_cell_index_out.txt'
+  press_fname = 'LiuJiaGou_tmp/pressure_60.txt'
+  sat_fname = 'LiuJiaGou_tmp/sat_60.txt'
+  status = file.open(index_fname, 0, 1)
+  status = file.read(zc_index, flac_zone_num)
+  status = file.close
+end
+;
+fish define read_ve_sol
+  array zc_index(500000)
+  array p(500000)
+  array sat(500000)
+
+  index_fname = 'LiuJiaGou_tmp/LiuJiaGou_Cap_zone_cell_index_out.txt'
+  press_fname = 'LiuJiaGou_tmp/pressure_60.txt'
+  sat_fname = 'LiuJiaGou_tmp/sat_60.txt'
+  status = file.open(press_fname, 0, 1)
+  status = file.read(p, mrst_cell_num)
+  status = file.close
+
+  status = file.open(sat_fname, 0, 1)
+  status = file.read(sat, mrst_cell_num)
+  status = file.close
+end
+;
+fish define import_ve_sol
+
+  array zc_index(500000)
+  array p(500000)
+  array sat(500000)
+  array temp(500000)
+
+  index_fname = 'LiuJiaGou_tmp/LiuJiaGou_Cap_zone_cell_index_out.txt'
+  press_fname = 'LiuJiaGou_tmp/pressure_60.txt'
+  sat_fname = 'LiuJiaGou_tmp/sat_60.txt'
+;   ; 打开饱和度文件
+;  temp_fname = 'LiuJiaGou tmp/temperature_24.txt'
+
+  pz = zone.head
+
+  loop i (1, flac_zone_num)
+    flac_zid = string.token(zc_index(i), 1)
+    ve_cid   = string.token(zc_index(i), 2)
+    zid = int(flac_zid)
+    pz  = zone.find(zid)
+    cid = int(ve_cid)
+    zone.extra(pz, 1) = float(p(cid)) - zone.pp(pz)
+    if zone.pp(pz) < float(p(cid))
+      zone.pp(pz) = float(p(cid))
+    end_if
+    zone.extra(pz, 2) = float(string.token(sat(cid), 1))
+    zone.extra(pz, 3) = float(string.token(sat(cid), 2))
+   endloop
+end
+;
+@init_var
+
+fish set @index_fname = 'LiuJiaGou_tmp/LiuJiaGou_Cap_zone_cell_index_out.txt'
+fish set @press_fname = 'LiuJiaGou_tmp/pressure_60.txt'
+fish set @sat_fname = 'LiuJiaGou_tmp/sat_60.txt'
+fish set @mrst_cell_num = 4900
+fish set @flac_zone_Num = 19600
+@read_zone_cell_index
+@read_ve_sol
+@import_ve_sol
+;------------------
+fish define init_var
+  array zc_index(500000)
+  array p(500000)
+  array sat(500000)
+
+  index_fname = 'LiuJiaGou_tmp/LiuJiaGou_Res_zone_cell_index_out.txt'
+  press_fname = 'LiuJiaGou_tmp/pressure_60.txt'
+  sat_fname = 'LiuJiaGou_tmp/sat_60.txt'
+
+  mrst_cell_num = 1
+  flac_zone_num = 1  
+end
+;
+;
+fish define read_zone_cell_index
+  array zc_index(500000)
+  array p(500000)
+  array sat(500000)
+
+  index_fname = 'LiuJiaGou_tmp/LiuJiaGou_Res_zone_cell_index_out.txt'
+  press_fname = 'LiuJiaGou_tmp/pressure_60.txt'
+  sat_fname = 'LiuJiaGou_tmp/sat_60.txt'
+  status = file.open(index_fname, 0, 1)
+  status = file.read(zc_index, flac_zone_num)
+  status = file.close
+end
+;
+fish define read_ve_sol
+  array zc_index(500000)
+  array p(500000)
+  array sat(500000)
+
+  index_fname = 'LiuJiaGou_tmp/LiuJiaGou_Res_zone_cell_index_out.txt'
+  press_fname = 'LiuJiaGou_tmp/pressure_60.txt'
+  sat_fname = 'LiuJiaGou_tmp/sat_60.txt'
+  status = file.open(press_fname, 0, 1)
+  status = file.read(p, mrst_cell_num)
+  status = file.close
+
+  status = file.open(sat_fname, 0, 1)
+  status = file.read(sat, mrst_cell_num)
+  status = file.close
+end
+;
+fish define import_ve_sol
+
+  array zc_index(500000)
+  array p(500000)
+  array sat(500000)
+  array temp(500000)
+
+  index_fname = 'LiuJiaGou_tmp/LiuJiaGou_Res_zone_cell_index_out.txt'
+  press_fname = 'LiuJiaGou_tmp/pressure_60.txt'
+  sat_fname = 'LiuJiaGou_tmp/sat_60.txt'
+;   ; 打开饱和度文件
+;  temp_fname = 'LiuJiaGou tmp/temperature_24.txt'
+
+  pz = zone.head
+
+  loop i (1, flac_zone_num)
+    flac_zid = string.token(zc_index(i), 1)
+    ve_cid   = string.token(zc_index(i), 2)
+    zid = int(flac_zid)
+    pz  = zone.find(zid)
+    cid = int(ve_cid)
+    zone.extra(pz, 1) = float(p(cid)) - zone.pp(pz)
+    if zone.pp(pz) < float(p(cid))
+      zone.pp(pz) = float(p(cid))
+    end_if
+    zone.extra(pz, 2) = float(string.token(sat(cid), 1))
+    zone.extra(pz, 3) = float(string.token(sat(cid), 2))
+   endloop
+end
+;
+@init_var
+
+fish set @index_fname = 'LiuJiaGou_tmp/LiuJiaGou_Res_zone_cell_index_out.txt'
+fish set @press_fname = 'LiuJiaGou_tmp/pressure_60.txt'
+fish set @sat_fname = 'LiuJiaGou_tmp/sat_60.txt'
+fish set @mrst_cell_num = 4900
+fish set @flac_zone_Num = 14700
+@read_zone_cell_index
+@read_ve_sol
+@import_ve_sol
+;;---------------------
+;fish define init_var
+;  array zc_index(500000)
+;  array p(500000)
+;  array sat(500000)
+;
+;  index_fname = 'ShiQianFeng_tmp/ShiQianFeng_Cap_zone_cell_index_out.txt'
+;  press_fname = 'ShiQianFeng_tmp/pressure_60.txt'
+;  sat_fname = 'ShiQianFeng_tmp/sat_60.txt'
+;
+;  mrst_cell_num = 1
+;  flac_zone_num = 1
+;end
+;;
+;;
+;fish define read_zone_cell_index
+;  array zc_index(500000)
+;  array p(500000)
+;  array sat(500000)
+;
+;  index_fname = 'ShiQianFeng_tmp/ShiQianFeng_Cap_zone_cell_index_out.txt'
+;  press_fname = 'ShiQianFeng_tmp/pressure_60.txt'
+;  sat_fname = 'ShiQianFeng_tmp/sat_60.txt'
+;  status = file.open(index_fname, 0, 1)
+;  status = file.read(zc_index, flac_zone_num)
+;  status = file.close
+;end
+;;
+;fish define read_ve_sol
+;  array zc_index(500000)
+;  array p(500000)
+;  array sat(500000)
+;
+;  index_fname = 'ShiQianFeng_tmp/ShiQianFeng_Cap_zone_cell_index_out.txt'
+;  press_fname = 'ShiQianFeng_tmp/pressure_60.txt'
+;  sat_fname = 'ShiQianFeng_tmp/sat_60.txt'
+;  status = file.open(press_fname, 0, 1)
+;  status = file.read(p, mrst_cell_num)
+;  status = file.close
+;
+;  status = file.open(sat_fname, 0, 1)
+;  status = file.read(sat, mrst_cell_num)
+;  status = file.close
+;end
+;;
+;fish define import_ve_sol
+;
+;  array zc_index(500000)
+;  array p(500000)
+;  array sat(500000)
+;  array temp(500000)
+;
+;  index_fname = 'ShiQianFeng_tmp/ShiQianFeng_Cap_zone_cell_index_out.txt'
+;  press_fname = 'ShiQianFeng_tmp/pressure_60.txt'
+;  sat_fname = 'ShiQianFeng_tmp/sat_60.txt'
+;;   ; 打开饱和度文件
+;;  temp_fname = 'LiuJiaGou tmp/temperature_24.txt'
+;
+;  pz = zone.head
+;
+;  loop i (1, flac_zone_num)
+;    flac_zid = string.token(zc_index(i), 1)
+;    ve_cid   = string.token(zc_index(i), 2)
+;    zid = int(flac_zid)
+;    pz  = zone.find(zid)
+;    cid = int(ve_cid)
+;    zone.extra(pz, 1) = float(p(cid)) - zone.pp(pz)
+;    if zone.pp(pz) < float(p(cid))
+;      zone.pp(pz) = float(p(cid))
+;    end_if
+;    zone.extra(pz, 2) = float(string.token(sat(cid), 1))
+;    zone.extra(pz, 3) = float(string.token(sat(cid), 2))
+;   endloop
+;end
+;;
+;@init_var
+;fish set @index_fname = 'ShiQianFeng_tmp/ShiQianFeng_Cap_zone_cell_index_out.txt'
+;fish set @press_fname = 'ShiQianFeng_tmp/pressure_60.txt'
+;fish set @sat_fname = 'ShiQianFeng_tmp/sat_60.txt'
+;fish set @mrst_cell_num = 4900
+;fish set @flac_zone_Num = 14700
+;@read_zone_cell_index
+;@read_ve_sol
+;@import_ve_sol
+;;---------------------
+;fish define init_var
+;  array zc_index(500000)
+;  array p(500000)
+;  array sat(500000)
+;
+;  index_fname = 'ShiQianFeng_tmp/ShiQianFeng_Res_zone_cell_index_out.txt'
+;  press_fname = 'ShiQianFeng_tmp/pressure_60.txt'
+;  sat_fname = 'ShiQianFeng_tmp/sat_60.txt'
+;
+;  mrst_cell_num = 1
+;  flac_zone_num = 1
+;end
+;;
+;;
+;fish define read_zone_cell_index
+;  array zc_index(500000)
+;  array p(500000)
+;  array sat(500000)
+;
+;  index_fname = 'ShiQianFeng_tmp/ShiQianFeng_Res_zone_cell_index_out.txt'
+;  press_fname = 'ShiQianFeng_tmp/pressure_60.txt'
+;  sat_fname = 'ShiQianFeng_tmp/sat_60.txt'
+;  status = file.open(index_fname, 0, 1)
+;  status = file.read(zc_index, flac_zone_num)
+;  status = file.close
+;end
+;;
+;fish define read_ve_sol
+;  array zc_index(500000)
+;  array p(500000)
+;  array sat(500000)
+;
+;  index_fname = 'ShiQianFeng_tmp/ShiQianFeng_Res_zone_cell_index_out.txt'
+;  press_fname = 'ShiQianFeng_tmp/pressure_60.txt'
+;  sat_fname = 'ShiQianFeng_tmp/sat_60.txt'
+;  status = file.open(press_fname, 0, 1)
+;  status = file.read(p, mrst_cell_num)
+;  status = file.close
+;
+;  status = file.open(sat_fname, 0, 1)
+;  status = file.read(sat, mrst_cell_num)
+;  status = file.close
+;end
+;;
+;fish define import_ve_sol
+;
+;  array zc_index(500000)
+;  array p(500000)
+;  array sat(500000)
+;  array temp(500000)
+;
+;  index_fname = 'ShiQianFeng_tmp/ShiQianFeng_Res_zone_cell_index_out.txt'
+;  press_fname = 'ShiQianFeng_tmp/pressure_60.txt'
+;  sat_fname = 'ShiQianFeng_tmp/sat_60.txt'
+;;   ; 打开饱和度文件
+;;  temp_fname = 'LiuJiaGou tmp/temperature_24.txt'
+;
+;  pz = zone.head
+;
+;  loop i (1, flac_zone_num)
+;    flac_zid = string.token(zc_index(i), 1)
+;    ve_cid   = string.token(zc_index(i), 2)
+;    zid = int(flac_zid)
+;    pz  = zone.find(zid)
+;    cid = int(ve_cid)
+;    zone.extra(pz, 1) = float(p(cid)) - zone.pp(pz)
+;    if zone.pp(pz) < float(p(cid))
+;      zone.pp(pz) = float(p(cid))
+;    end_if
+;    zone.extra(pz, 2) = float(string.token(sat(cid), 1))
+;    zone.extra(pz, 3) = float(string.token(sat(cid), 2))
+;   endloop
+;end
+;;
+;@init_var
+;fish set @index_fname = 'ShiQianFeng_tmp/ShiQianFeng_Res_zone_cell_index_out.txt'
+;fish set @press_fname = 'ShiQianFeng_tmp/pressure_60.txt'
+;fish set @sat_fname = 'ShiQianFeng_tmp/sat_60.txt'
+;fish set @mrst_cell_num = 4900
+;fish set @flac_zone_Num = 4900
+;@read_zone_cell_index
+;@read_ve_sol
+;@import_ve_sol
+;;---------------------
+;fish define init_var
+;  array zc_index(500000)
+;  array p(500000)
+;  array sat(500000)
+;
+;  index_fname = 'ZhiFang_tmp/ZhiFang_Cap_zone_cell_index_out.txt'
+;  press_fname = 'ZhiFang_tmp/pressure_60.txt'
+;  sat_fname = 'ZhiFang_tmp/sat_60.txt'
+;
+;  mrst_cell_num = 1
+;  flac_zone_num = 1
+;end
+;;
+;;
+;fish define read_zone_cell_index
+;  array zc_index(500000)
+;  array p(500000)
+;  array sat(500000)
+;
+;  index_fname = 'ZhiFang_tmp/ZhiFang_Cap_zone_cell_index_out.txt'
+;  press_fname = 'ZhiFang_tmp/pressure_60.txt'
+;  sat_fname = 'ZhiFang_tmp/sat_60.txt'
+;  status = file.open(index_fname, 0, 1)
+;  status = file.read(zc_index, flac_zone_num)
+;  status = file.close
+;end
+;;
+;fish define read_ve_sol
+;  array zc_index(500000)
+;  array p(500000)
+;  array sat(500000)
+;
+;  index_fname = 'ZhiFang_tmp/ZhiFang_Cap_zone_cell_index_out.txt'
+;  press_fname = 'ZhiFang_tmp/pressure_60.txt'
+;  sat_fname = 'ZhiFang_tmp/sat_60.txt'
+;  status = file.open(press_fname, 0, 1)
+;  status = file.read(p, mrst_cell_num)
+;  status = file.close
+;
+;  status = file.open(sat_fname, 0, 1)
+;  status = file.read(sat, mrst_cell_num)
+;  status = file.close
+;end
+;;
+;fish define import_ve_sol
+;
+;  array zc_index(500000)
+;  array p(500000)
+;  array sat(500000)
+;  array temp(500000)
+;
+;  index_fname = 'ZhiFang_tmp/ZhiFang_Cap_zone_cell_index_out.txt'
+;  press_fname = 'ZhiFang_tmp/pressure_60.txt'
+;  sat_fname = 'ZhiFang_tmp/sat_60.txt'
+;;   ; 打开饱和度文件
+;;  temp_fname = 'LiuJiaGou tmp/temperature_24.txt'
+;
+;  pz = zone.head
+;
+;  loop i (1, flac_zone_num)
+;    flac_zid = string.token(zc_index(i), 1)
+;    ve_cid   = string.token(zc_index(i), 2)
+;    zid = int(flac_zid)
+;    pz  = zone.find(zid)
+;    cid = int(ve_cid)
+;    zone.extra(pz, 1) = float(p(cid)) - zone.pp(pz)
+;    if zone.pp(pz) < float(p(cid))
+;      zone.pp(pz) = float(p(cid))
+;    end_if
+;    zone.extra(pz, 2) = float(string.token(sat(cid), 1))
+;    zone.extra(pz, 3) = float(string.token(sat(cid), 2))
+;   endloop
+;end
+;;
+;@init_var
+;fish set @index_fname = 'ZhiFang_tmp/ZhiFang_Cap_zone_cell_index_out.txt'
+;fish set @press_fname = 'ZhiFang_tmp/pressure_60.txt'
+;fish set @sat_fname = 'ZhiFang_tmp/sat_60.txt'
+;fish set @mrst_cell_num = 4900
+;fish set @flac_zone_Num = 19600
+;@read_zone_cell_index
+;@read_ve_sol
+;@import_ve_sol
+;;---------------------
+;fish define init_var
+;  array zc_index(500000)
+;  array p(500000)
+;  array sat(500000)
+;
+;  index_fname = 'ZhiFang_tmp/ZhiFang_Res_zone_cell_index_out.txt'
+;  press_fname = 'ZhiFang_tmp/pressure_60.txt'
+;  sat_fname = 'ZhiFang_tmp/sat_60.txt'
+;
+;  mrst_cell_num = 1
+;  flac_zone_num = 1
+;end
+;;
+;;
+;fish define read_zone_cell_index
+;  array zc_index(500000)
+;  array p(500000)
+;  array sat(500000)
+;
+;  index_fname = 'ZhiFang_tmp/ZhiFang_Res_zone_cell_index_out.txt'
+;  press_fname = 'ZhiFang_tmp/pressure_60.txt'
+;  sat_fname = 'ZhiFang_tmp/sat_60.txt'
+;  status = file.open(index_fname, 0, 1)
+;  status = file.read(zc_index, flac_zone_num)
+;  status = file.close
+;end
+;;
+;fish define read_ve_sol
+;  array zc_index(500000)
+;  array p(500000)
+;  array sat(500000)
+;
+;  index_fname = 'ZhiFang_tmp/ZhiFang_Res_zone_cell_index_out.txt'
+;  press_fname = 'ZhiFang_tmp/pressure_60.txt'
+;  sat_fname = 'ZhiFang_tmp/sat_60.txt'
+;  status = file.open(press_fname, 0, 1)
+;  status = file.read(p, mrst_cell_num)
+;  status = file.close
+;
+;  status = file.open(sat_fname, 0, 1)
+;  status = file.read(sat, mrst_cell_num)
+;  status = file.close
+;end
+;;
+;fish define import_ve_sol
+;
+;  array zc_index(500000)
+;  array p(500000)
+;  array sat(500000)
+;  array temp(500000)
+;
+;  index_fname = 'ZhiFang_tmp/ZhiFang_Res_zone_cell_index_out.txt'
+;  press_fname = 'ZhiFang_tmp/pressure_60.txt'
+;  sat_fname = 'ZhiFang_tmp/sat_60.txt'
+;;   ; 打开饱和度文件
+;;  temp_fname = 'LiuJiaGou tmp/temperature_24.txt'
+;
+;  pz = zone.head
+;
+;  loop i (1, flac_zone_num)
+;    flac_zid = string.token(zc_index(i), 1)
+;    ve_cid   = string.token(zc_index(i), 2)
+;    zid = int(flac_zid)
+;    pz  = zone.find(zid)
+;    cid = int(ve_cid)
+;    zone.extra(pz, 1) = float(p(cid)) - zone.pp(pz)
+;    if zone.pp(pz) < float(p(cid))
+;      zone.pp(pz) = float(p(cid))
+;    end_if
+;    zone.extra(pz, 2) = float(string.token(sat(cid), 1))
+;    zone.extra(pz, 3) = float(string.token(sat(cid), 2))
+;   endloop
+;end
+;;
+;@init_var
+;fish set @index_fname = 'ZhiFang_tmp/ZhiFang_Res_zone_cell_index_out.txt'
+;fish set @press_fname = 'ZhiFang_tmp/pressure_60.txt'
+;fish set @sat_fname = 'ZhiFang_tmp/sat_60.txt'
+;fish set @mrst_cell_num = 4900
+;fish set @flac_zone_Num = 24500
+;@read_zone_cell_index
+;@read_ve_sol
+;@import_ve_sol
+model save 'final_flac.sav'
+
+zone history displacement-z   position (16929,16107,-1150)
+zone history stress-max       position (16929,16107,-1150)
+zone history pore-pressure    position (16929,16107,-1150)
+zone history strain-increment position (16929,16107,-1150)
+
+zone history displacement-z   position (15529,16107,0)
+zone history stress-max       position (15529,16107,0)
+zone history pore-pressure    position (15529,16107,0)
+zone history strain-increment position (15529,16107,0)
+
+zone history displacement-z   position (15529,16107,-1150)
+zone history stress-max       position (15529,16107,-1150)
+zone history pore-pressure    position (15529,16107,-1150)
+zone history strain-increment position (15529,16107,-1150)
+
+model solve time-total 157680000
+model save '5_year_displacement.sav'

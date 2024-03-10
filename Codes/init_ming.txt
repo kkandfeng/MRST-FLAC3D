@@ -1,0 +1,82 @@
+model new
+model restore 'init_flac.sav'
+
+zone gridpoint initialize displacement-x 0
+zone gridpoint initialize displacement-y 0
+zone gridpoint initialize displacement-z 0
+zone gridpoint initialize velocity-x 0
+zone gridpoint initialize velocity-y 0
+zone gridpoint initialize velocity-z 0
+zone history displacement-z   position (15529,16107,-2200)
+zone history stress-max       position (15529,16107,-2200)
+zone history stress-zz        position (15529,16107,-2200)
+zone history strain-increment position (15529,16107,-2200)
+
+zone history displacement-z   position (20100,17016,-2200)
+zone history stress-max       position (20100,17016,-2200)
+zone history stress-zz        position (20100,17016,-2200)
+zone history strain-increment position (20100,17016,-2200)
+
+zone history displacement-z   position (15529,16107,-3000)
+zone history stress-max       position (15529,16107,-3000)
+zone history stress-zz        position (15529,16107,-3000)
+zone history strain-increment position (15529,16107,-3000)
+
+zone history displacement-z   position (20100,17016,-3000)
+zone history stress-max       position (20100,17016,-3000)
+zone history stress-zz        position (20100,17016,-3000)
+zone history strain-increment position (20100,17016,-3000)
+
+zone history displacement-z   position (15529,16107,-3400)
+zone history stress-max       position (15529,16107,-3400)
+zone history stress-zz        position (15529,16107,-3400)
+zone history strain-increment position (15529,16107,-3400)
+
+zone history displacement-z   position (20100,17016,-3400)
+zone history stress-max       position (20100,17016,-3400)
+zone history stress-zz        position (20100,17016,-3400)
+zone history strain-increment position (20100,17016,-3400)
+
+;  Command stream for mining and filling
+zone cmodel assign null range  pos-x 19998 20048 pos-y 16107 16119.04 pos-z -1050 -1150
+zone cmodel assign null range  pos-x 20448 20498 pos-y 16107 16119.04 pos-z -1050 -1150
+
+model cycle 15
+
+fish define kaiwa_watian1
+     
+     loop n(0,330)
+         n1 = 16107    +  n*12.04
+         n2 = 16119.04 +  n*12.04
+         n3 = 16119.04 +  n*12.04
+         n4 = 16131.08 +  n*12.04
+
+         command
+         ;Knockout operations
+             zone cmodel assign null range pos-x 19998 20048 pos-y @n3 @n4 pos-z -1050 -1150
+;             zone cmodel assign null range pos-x 20448 20498 pos-y @n3 @n4 pos-z -1050 -1150
+             model cycle  5
+;             zone cmodel assign mohr-coulomb range pos-x 19000 19050  pos-y @n1 @n2 pos-z -1098.5 -1101.5
+;             zone property density 2800 young 0.49e9  poisson 0.36  range pos-x 19998 20048  pos-y @n1 @n2 pos-z -1098.5 -1101.5
+;             zone cmodel assign mohr-coulomb range pos-x 20448 20498  pos-y @n1 @n2 pos-z -1098.5 -1101.5
+;             zone property density 2800 young 0.49e9  poisson 0.36  range pos-x 20448 20498  pos-y @n1 @n2 pos-z -1098.5 -1101.5
+;             model cycle 5
+             
+         endcommand
+     endloop
+             
+end
+     
+@kaiwa_watian1
+
+
+;  This is the filling part of the re-parametric simulation, and the above is a step-by-step excavation using the fish language, and the ；command is the same.
+;zone cmodel assign mohr-coulomb range pos-x 19998 20048  pos-y 20068.16 20080.2 pos-z -1050 -1150
+;zone property density 2800 young 0.49e9  poisson 0.36    range pos-x 19998 20048  pos-y 20068.16 20080.2 pos-z -1098.5 -1101.5
+;zone cmodel assign mohr-coulomb range pos-x 20448 20498  pos-y 20068.16 20080.2 pos-z -1050 -1150
+;zone property density 2800 young 0.49e9  poisson 0.36    range pos-x 20448 20498  pos-y 20068.16 20080.2 pos-z -1098.5 -1101.5
+;
+;model cycle  5
+model solve ratio 1e-6
+
+model save 'final_ming.sav'

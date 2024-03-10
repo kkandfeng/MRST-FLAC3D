@@ -1,0 +1,160 @@
+;  Obtain the unit number and midpoint information of the specified group
+;
+model new
+model restore 'init_flac.sav'
+;
+;fish define grid_info1
+;  group_name = 'ShiQianFeng_Res'
+;  array cell_info(1)
+;
+;  status = file.open('ShiQianFeng_tmp/ShiQianFengRes_zone_center_out.txt', 1, 1)
+;
+;  pnt = zone.head
+;  loop while pnt # null
+;    if group_name = zone.group(pnt) then
+;      ; oo = out('ZhiFang')
+;
+;      cell_info(1) = string(zone.id(pnt))
+;      coord = zone.pos(pnt)
+;      cell_info(1) = cell_info(1) + ' ' + string(comp.x(coord)) + ' ' + string(comp.y(coord)) + ' ' + string(comp.z(coord))
+;      ;oo = out(coord)
+;      status = file.write(cell_info, 1)
+;      ;oo = out(cell_info(2))
+;    end_if
+;    pnt = zone.next(pnt)
+;  end_loop
+;
+;  status = file.close
+;end
+;;
+;@grid_info1
+;
+fish define grid_info5
+  group_name = 'LiuJiaGou_Cap'
+  array cell_info(1)
+
+  status = file.open('LiuJiaGou_tmp/LiuJiaGouCap_zone_center_out.txt', 1, 1)
+
+  pnt = zone.head
+  loop while pnt # null
+    if group_name = zone.group(pnt) then
+      ; oo = out('ZhiFang')
+      
+      cell_info(1) = string(zone.id(pnt))
+      coord = zone.pos(pnt)
+      cell_info(1) = cell_info(1) + ' ' + string(comp.x(coord)) + ' ' + string(comp.y(coord)) + ' ' + string(comp.z(coord))
+      ;oo = out(coord)
+      status = file.write(cell_info, 1)
+      ;oo = out(cell_info(2))
+    end_if
+    pnt = zone.next(pnt)
+  end_loop
+
+  status = file.close
+end
+;
+@grid_info5
+
+fish define grid_info2
+  group_name = 'LiuJiaGou_Res'
+  array cell_info(1)
+
+  status = file.open('LiuJiaGou_tmp/LiuJiaGouRes_zone_center_out.txt', 1, 1)
+
+  pnt = zone.head
+  loop while pnt # null
+    if group_name = zone.group(pnt) then
+      ; oo = out('ZhiFang')
+      
+      cell_info(1) = string(zone.id(pnt))
+      coord = zone.pos(pnt)
+      cell_info(1) = cell_info(1) + ' ' + string(comp.x(coord)) + ' ' + string(comp.y(coord)) + ' ' + string(comp.z(coord))
+      ;oo = out(coord)
+      status = file.write(cell_info, 1)
+      ;oo = out(cell_info(2))
+    end_if
+    pnt = zone.next(pnt)
+  end_loop
+
+  status = file.close
+end
+;
+@grid_info2
+;
+;fish define grid_info3
+;  group_name = 'ZhiFang_Res'
+;  array cell_info(1)
+;
+;  status = file.open('ZhiFang_tmp/ZhiFangRes_zone_center_out.txt', 1, 1)
+;
+;  pnt = zone.head
+;  loop while pnt # null
+;    if group_name = zone.group(pnt) then
+;      ; oo = out('ZhiFang')
+;
+;      cell_info(1) = string(zone.id(pnt))
+;      coord = zone.pos(pnt)
+;      cell_info(1) = cell_info(1) + ' ' + string(comp.x(coord)) + ' ' + string(comp.y(coord)) + ' ' + string(comp.z(coord))
+;      ;oo = out(coord)
+;      status = file.write(cell_info, 1)
+;      ;oo = out(cell_info(2))
+;    end_if
+;    pnt = zone.next(pnt)
+;  end_loop
+;
+;  status = file.close
+;end
+;;
+;@grid_info3
+
+;fish define grid_info4
+;  group_name = 'ZhiFang_Cap'
+;  array cell_info(1)
+;
+;  status = file.open('ZhiFang_tmp/ZhiFangCap_zone_center_out.txt', 1, 1)
+;
+;  pnt = zone.head
+;  loop while pnt # null
+;    if group_name = zone.group(pnt) then
+;      ; oo = out('ZhiFang')
+;
+;      cell_info(1) = string(zone.id(pnt))
+;      coord = zone.pos(pnt)
+;      cell_info(1) = cell_info(1) + ' ' + string(comp.x(coord)) + ' ' + string(comp.y(coord)) + ' ' + string(comp.z(coord))
+;      ;oo = out(coord)
+;      status = file.write(cell_info, 1)
+;      ;oo = out(cell_info(2))
+;    end_if
+;    pnt = zone.next(pnt)
+;  end_loop
+;
+;  status = file.close
+;end
+;;
+;@grid_info4
+;
+;fish define grid_info6
+;  group_name = 'ShiQianFeng_Cap'
+;  array cell_info(1)
+;
+;  status = file.open('ShiQianFeng_tmp/ShiQianFengCap_zone_center_out.txt', 1, 1)
+;
+;  pnt = zone.head
+;  loop while pnt # null
+;    if group_name = zone.group(pnt) then
+;      ; oo = out('ZhiFang')
+;
+;      cell_info(1) = string(zone.id(pnt))
+;      coord = zone.pos(pnt)
+;      cell_info(1) = cell_info(1) + ' ' + string(comp.x(coord)) + ' ' + string(comp.y(coord)) + ' ' + string(comp.z(coord))
+;      ;oo = out(coord)
+;      status = file.write(cell_info, 1)
+;      ;oo = out(cell_info(2))
+;    end_if
+;    pnt = zone.next(pnt)
+;  end_loop
+;
+;  status = file.close
+;end
+;;
+;@grid_info6

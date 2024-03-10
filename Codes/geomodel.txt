@@ -1,0 +1,131 @@
+model new
+fish define create_model
+
+  xmin = 0.0
+  ymin = 0.0  
+  xmax = 42000
+  ymax = 42000
+
+  xwell = 15529
+  ywell = 16107
+
+  nx1 = 30
+  nx2 = 40
+  ny1 = 30
+  ny2 = 40
+
+  z0 = 0
+  z1 = -2200
+  z2 = -2350
+  z3 = -2550
+  z4 = -2950
+  z5 = -3280
+  z6 = -3400
+  z7 = -3700
+  z8 = -3750
+  command
+;
+;; ===============Surface=====================
+    zone create brick point 0 @xwell @ywell @z1 point 1 @xmin @ywell @z1 point 2 @xwell @ymin @z1 point 3 @xwell @ywell @z0 point 4 @xmin @ymin @z1 point 5 @xwell @ymin @z0 point 6 @xmin @ywell @z0 point 7 @xmin @ymin @z0 size @nx1 @ny1 45 ratio 1.10 1.10 1.1
+;
+    zone create brick point 0 @xwell @ywell @z1 point 1 @xwell @ymin @z1 point 2 @xmax @ywell @z1 point 3 @xwell @ywell @z0 point 4 @xmax @ymin @z1 point 5 @xmax @ywell @z0 point 6 @xwell @ymin @z0 point 7 @xmax @ymin @z0 size @ny1 @nx2 45 ratio 1.10 1.10 1.1
+;
+    zone create brick point 0 @xwell @ywell @z1 point 1 @xmax @ywell @z1 point 2 @xwell @ymax @z1 point 3 @xwell @ywell @z0 point 4 @xmax @ymax @z1 point 5 @xwell @ymax @z0 point 6 @xmax @ywell @z0 point 7 @xmax @ymax @z0 size @nx2 @ny2 45 ratio 1.10 1.10 1.1
+;
+    zone create brick point 0 @xwell @ywell @z1 point 1 @xwell @ymax @z1 point 2 @xmin @ywell @z1 point 3 @xwell @ywell @z0 point 4 @xmin @ymax @z1 point 5 @xmin @ywell @z0 point 6 @xwell @ymax @z0 point 7 @xmin @ymax @z0 size @ny2 @nx1 45 ratio 1.10 1.10 1.1
+;
+;; ===============ZhiFang_Cap=====================
+    zone create brick point 0 @xwell @ywell @z2 point 1 @xmin @ywell @z2 point 2 @xwell @ymin @z2 point 3 @xwell @ywell @z1 point 4 @xmin @ymin @z2 point 5 @xwell @ymin @z1 point 6 @xmin @ywell @z1 point 7 @xmin @ymin @z1 size @nx1 @ny1 12 ratio 1.10 1.10 1.0
+;
+    zone create brick point 0 @xwell @ywell @z2 point 1 @xwell @ymin @z2 point 2 @xmax @ywell @z2 point 3 @xwell @ywell @z1 point 4 @xmax @ymin @z2 point 5 @xmax @ywell @z1 point 6 @xwell @ymin @z1 point 7 @xmax @ymin @z1 size @ny1 @nx2 12 ratio 1.10 1.10 1.0
+;
+    zone create brick point 0 @xwell @ywell @z2 point 1 @xmax @ywell @z2 point 2 @xwell @ymax @z2 point 3 @xwell @ywell @z1 point 4 @xmax @ymax @z2 point 5 @xwell @ymax @z1 point 6 @xmax @ywell @z1 point 7 @xmax @ymax @z1 size @nx2 @ny2 12 ratio 1.10 1.10 1.0
+;
+    zone create brick point 0 @xwell @ywell @z2 point 1 @xwell @ymax @z2 point 2 @xmin @ywell @z2 point 3 @xwell @ywell @z1 point 4 @xmin @ymax @z2 point 5 @xmin @ywell @z1 point 6 @xwell @ymax @z1 point 7 @xmin @ymax @z1 size @ny2 @nx1 12 ratio 1.10 1.10 1.0
+;
+;; ===============ZhiFang_Res=====================
+    zone create brick point 0 @xwell @ywell @z3 point 1 @xmin @ywell @z3 point 2 @xwell @ymin @z3 point 3 @xwell @ywell @z2 point 4 @xmin @ymin @z3 point 5 @xwell @ymin @z2 point 6 @xmin @ywell @z2 point 7 @xmin @ymin @z2 size @nx1 @ny1 15 ratio 1.10 1.10 1.0
+;
+    zone create brick point 0 @xwell @ywell @z3 point 1 @xwell @ymin @z3 point 2 @xmax @ywell @z3 point 3 @xwell @ywell @z2 point 4 @xmax @ymin @z3 point 5 @xmax @ywell @z2 point 6 @xwell @ymin @z2 point 7 @xmax @ymin @z2 size @ny1 @nx2 15 ratio 1.10 1.10 1.0
+;
+    zone create brick point 0 @xwell @ywell @z3 point 1 @xmax @ywell @z3 point 2 @xwell @ymax @z3 point 3 @xwell @ywell @z2 point 4 @xmax @ymax @z3 point 5 @xwell @ymax @z2 point 6 @xmax @ywell @z2 point 7 @xmax @ymax @z2 size @nx2 @ny2 15 ratio 1.10 1.10 1.0
+;
+    zone create brick point 0 @xwell @ywell @z3 point 1 @xwell @ymax @z3 point 2 @xmin @ywell @z3 point 3 @xwell @ywell @z2 point 4 @xmin @ymax @z3 point 5 @xmin @ywell @z2 point 6 @xwell @ymax @z2 point 7 @xmin @ymax @z2 size @ny2 @nx1 15 ratio 1.10 1.10 1.0
+;
+;; ===============HeShangGou=====================
+    zone create brick point 0 @xwell @ywell @z4 point 1 @xmin @ywell @z4 point 2 @xwell @ymin @z4 point 3 @xwell @ywell @z3 point 4 @xmin @ymin @z4 point 5 @xwell @ymin @z3 point 6 @xmin @ywell @z3 point 7 @xmin @ymin @z3 size @nx1 @ny1 12 ratio 1.10 1.10 1.0
+;
+    zone create brick point 0 @xwell @ywell @z4 point 1 @xwell @ymin @z4 point 2 @xmax @ywell @z4 point 3 @xwell @ywell @z3 point 4 @xmax @ymin @z4 point 5 @xmax @ywell @z3 point 6 @xwell @ymin @z3 point 7 @xmax @ymin @z3 size @ny1 @nx2 12 ratio 1.10 1.10 1.0
+;
+    zone create brick point 0 @xwell @ywell @z4 point 1 @xmax @ywell @z4 point 2 @xwell @ymax @z4 point 3 @xwell @ywell @z3 point 4 @xmax @ymax @z4 point 5 @xwell @ymax @z3 point 6 @xmax @ywell @z3 point 7 @xmax @ymax @z3 size @nx2 @ny2 12 ratio 1.10 1.10 1.0
+;
+    zone create brick point 0 @xwell @ywell @z4 point 1 @xwell @ymax @z4 point 2 @xmin @ywell @z4 point 3 @xwell @ywell @z3 point 4 @xmin @ymax @z4 point 5 @xmin @ywell @z3 point 6 @xwell @ymax @z3 point 7 @xmin @ymax @z3 size @ny2 @nx1 12 ratio 1.10 1.10 1.0
+;
+;; ===============LiuJiaGou_Cap=====================
+    zone create brick point 0 @xwell @ywell @z5 point 1 @xmin @ywell @z5 point 2 @xwell @ymin @z5 point 3 @xwell @ywell @z4 point 4 @xmin @ymin @z5 point 5 @xwell @ymin @z4 point 6 @xmin @ywell @z4 point 7 @xmin @ymin @z4 size @nx1 @ny1 16 ratio 1.10 1.10 1.0
+;
+    zone create brick point 0 @xwell @ywell @z5 point 1 @xwell @ymin @z5 point 2 @xmax @ywell @z5 point 3 @xwell @ywell @z4 point 4 @xmax @ymin @z5 point 5 @xmax @ywell @z4 point 6 @xwell @ymin @z4 point 7 @xmax @ymin @z4 size @ny1 @nx2 16 ratio 1.10 1.10 1.0
+;
+    zone create brick point 0 @xwell @ywell @z5 point 1 @xmax @ywell @z5 point 2 @xwell @ymax @z5 point 3 @xwell @ywell @z4 point 4 @xmax @ymax @z5 point 5 @xwell @ymax @z4 point 6 @xmax @ywell @z4 point 7 @xmax @ymax @z4 size @nx2 @ny2 16 ratio 1.10 1.10 1.0
+;
+    zone create brick point 0 @xwell @ywell @z5 point 1 @xwell @ymax @z5 point 2 @xmin @ywell @z5 point 3 @xwell @ywell @z4 point 4 @xmin @ymax @z5 point 5 @xmin @ywell @z4 point 6 @xwell @ymax @z4 point 7 @xmin @ymax @z4 size @ny2 @nx1 16 ratio 1.10 1.10 1.0
+;
+;; ===============LiuJiaGou_Res=====================
+    zone create brick point 0 @xwell @ywell @z6 point 1 @xmin @ywell @z6 point 2 @xwell @ymin @z6 point 3 @xwell @ywell @z5 point 4 @xmin @ymin @z6 point 5 @xwell @ymin @z5 point 6 @xmin @ywell @z5 point 7 @xmin @ymin @z5 size @nx1 @ny1 12 ratio 1.10 1.10 1.0
+;
+    zone create brick point 0 @xwell @ywell @z6 point 1 @xwell @ymin @z6 point 2 @xmax @ywell @z6 point 3 @xwell @ywell @z5 point 4 @xmax @ymin @z6 point 5 @xmax @ywell @z5 point 6 @xwell @ymin @z5 point 7 @xmax @ymin @z5 size @ny1 @nx2 12 ratio 1.10 1.10 1.0
+;
+    zone create brick point 0 @xwell @ywell @z6 point 1 @xmax @ywell @z6 point 2 @xwell @ymax @z6 point 3 @xwell @ywell @z5 point 4 @xmax @ymax @z6 point 5 @xwell @ymax @z5 point 6 @xmax @ywell @z5 point 7 @xmax @ymax @z5 size @nx2 @ny2 12 ratio 1.10 1.10 1.0
+;
+    zone create brick point 0 @xwell @ywell @z6 point 1 @xwell @ymax @z6 point 2 @xmin @ywell @z6 point 3 @xwell @ywell @z5 point 4 @xmin @ymax @z6 point 5 @xmin @ywell @z5 point 6 @xwell @ymax @z5 point 7 @xmin @ymax @z5 size @ny2 @nx1 12 ratio 1.10 1.10 1.0
+;
+;; ===============ShiQianFeng_Cap=====================
+    zone create brick point 0 @xwell @ywell @z7 point 1 @xmin @ywell @z7 point 2 @xwell @ymin @z7 point 3 @xwell @ywell @z6 point 4 @xmin @ymin @z7 point 5 @xwell @ymin @z6 point 6 @xmin @ywell @z6 point 7 @xmin @ymin @z6 size @nx1 @ny1 6 ratio 1.10 1.10 1.0
+;
+    zone create brick point 0 @xwell @ywell @z7 point 1 @xwell @ymin @z7 point 2 @xmax @ywell @z7 point 3 @xwell @ywell @z6 point 4 @xmax @ymin @z7 point 5 @xmax @ywell @z6 point 6 @xwell @ymin @z6 point 7 @xmax @ymin @z6 size @ny1 @nx2 6 ratio 1.10 1.10 1.0
+;
+    zone create brick point 0 @xwell @ywell @z7 point 1 @xmax @ywell @z7 point 2 @xwell @ymax @z7 point 3 @xwell @ywell @z6 point 4 @xmax @ymax @z7 point 5 @xwell @ymax @z6 point 6 @xmax @ywell @z6 point 7 @xmax @ymax @z6 size @nx2 @ny2 6 ratio 1.10 1.10 1.0
+;
+    zone create brick point 0 @xwell @ywell @z7 point 1 @xwell @ymax @z7 point 2 @xmin @ywell @z7 point 3 @xwell @ywell @z6 point 4 @xmin @ymax @z7 point 5 @xmin @ywell @z6 point 6 @xwell @ymax @z6 point 7 @xmin @ymax @z6 size @ny2 @nx1 6 ratio 1.10 1.10 1.0
+;
+;; ===============ShiQianFeng_Res=====================
+    zone create brick point 0 @xwell @ywell @z8 point 1 @xmin @ywell @z8 point 2 @xwell @ymin @z8 point 3 @xwell @ywell @z7 point 4 @xmin @ymin @z8 point 5 @xwell @ymin @z7 point 6 @xmin @ywell @z7 point 7 @xmin @ymin @z7 size @nx1 @ny1 2 ratio 1.10 1.10 1.0
+;
+    zone create brick point 0 @xwell @ywell @z8 point 1 @xwell @ymin @z8 point 2 @xmax @ywell @z8 point 3 @xwell @ywell @z7 point 4 @xmax @ymin @z8 point 5 @xmax @ywell @z7 point 6 @xwell @ymin @z7 point 7 @xmax @ymin @z7 size @ny1 @nx2 2 ratio 1.10 1.10 1.0
+;
+    zone create brick point 0 @xwell @ywell @z8 point 1 @xmax @ywell @z8 point 2 @xwell @ymax @z8 point 3 @xwell @ywell @z7 point 4 @xmax @ymax @z8 point 5 @xwell @ymax @z7 point 6 @xmax @ywell @z7 point 7 @xmax @ymax @z7 size @nx2 @ny2 2 ratio 1.10 1.10 1.0
+;
+    zone create brick point 0 @xwell @ywell @z8 point 1 @xwell @ymax @z8 point 2 @xmin @ywell @z8 point 3 @xwell @ywell @z7 point 4 @xmin @ymax @z8 point 5 @xmin @ywell @z7 point 6 @xwell @ymax @z7 point 7 @xmin @ymax @z7 size @ny2 @nx1 2 ratio 1.10 1.10 1.0
+;
+;   zone create brick p 0 16369 16419 -1100 p 1 21829 17801 -1100 p 2 15685 18344 -1100 p 3 16369 16419 -1000 p 4 21154 19971 -1100 p 5 15685 18344 -1000 p 6 21829 17801 -1000 p 7 21154 19971 -1000 size 40 40 5 group 'Coal_1'
+;
+    zone group 'Surface' range position-z @z1 @z0
+    zone group 'ZhiFang_Cap' range position-z @z2 @z1
+    zone group 'ZhiFang_Res' range position-z @z3 @z2
+    zone group 'HeShangGou' range position-z @z4 @z3
+    zone group 'LiuJiaGou_Cap' range position-z @z5 @z4
+    zone group 'LiuJiaGou_Res' range position-z @z6 @z5
+    zone group 'ShiQianFeng_Cap' range position-z @z7 @z6
+    zone group 'ShiQianFeng_Res' range position-z @z8 @z7
+;
+    zone group 'Coal'       range position-x 14000 28000 position-y 14000 28000   position-z -1250 -1000 group 'Surface'
+    zone group 'Coal_Area'     range position-x 16929 22480 position-y 16107 20080.2 position-z -1150 -1050 group 'Coal'
+;    zone group 'Coal_2'     range position-x 20448 22480 position-y 16107 20080.2 position-z -1150 -1050 group 'Coal'
+    zone densify local maximum-length 100,100,10 range group  'Coal_Area'
+    zone attach by-face
+    zone gridpoint merge
+;
+  end_command
+end
+@create_model
+zone gridpoint fix velocity-x range position-z -3751 -3749
+zone gridpoint fix velocity-y range position-z -3751 -3749
+zone gridpoint fix velocity-z range position-z -3751 -3749
+;
+zone gridpoint fix velocity-x range position-x -1 1
+zone gridpoint fix velocity-x range position-x 41999 42001
+;
+zone gridpoint fix velocity-y range position-y -1 1
+zone gridpoint fix velocity-y range position-y 41999 42001
+;
+;
