@@ -52,18 +52,18 @@ zone fluid cmodel assign null range group 'Surface'  group 'Coal' group 'HeShang
 ;
 ; 1D = 9.8697e-13 m^2
 ; 1mD ~= 9.8697e-16 m^2
-zone fluid property permeability 3e-15 range group 'ZhiFang_Res'
+zone fluid property permeability 1e-14 range group 'ZhiFang_Res'
 zone fluid property porosity 0.15 range group 'ZhiFang_Res'
-zone fluid property permeability 3e-15 range group 'LiuJiaGou_Res'
+zone fluid property permeability 5e-15 range group 'LiuJiaGou_Res'
 zone fluid property porosity 0.14 range group 'LiuJiaGou_Res'
 zone fluid property permeability 3e-15 range group 'ShiQianFeng_Res'
 zone fluid property porosity 0.10 range group 'ShiQianFeng_Res'
 ;
-zone fluid property permeability 0.1e-19 range group 'ZhiFang_Cap'
+zone fluid property permeability 1e-16 range group 'ZhiFang_Cap'
 zone fluid property porosity 0.015 range group 'ZhiFang_Cap'
-zone fluid property permeability 0.1e-19 range group 'LiuJiaGou_Cap'
+zone fluid property permeability 5e-17 range group 'LiuJiaGou_Cap'
 zone fluid property porosity 0.014 range group 'LiuJiaGou_Cap'
-zone fluid property permeability 0.1e-18 range group 'ShiQianFeng_Cap'
+zone fluid property permeability 3e-17 range group 'ShiQianFeng_Cap'
 zone fluid property porosity 0.010 range group 'ShiQianFeng_Cap'
 ;
 ;
